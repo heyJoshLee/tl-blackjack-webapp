@@ -7,8 +7,9 @@ set :sessions, true
 
 
 post '/' do
-  session[:username] = params[:username]
-  if session[:username] != "" && session[:username]
+  if !session[:username]
+    session[:username] = params[:username]
+  elsif session[:username] != "" && session[:username]
     redirect '/home'
   else 
     redirect 'form'
@@ -16,11 +17,12 @@ post '/' do
 end
 
 get '/' do
-  session[:username] = params[:username]
-  if !session[:username] || session[:username] != ""
-    redirect '/form'
-  else
+  if !session[:username]
+    session[:username] = params[:username]
+  elsif session[:username] != "" && session[:username]
     redirect '/home'
+  else 
+    redirect 'form'
   end
 end
 
