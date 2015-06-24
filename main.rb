@@ -4,15 +4,16 @@ require "pry"
 
 set :sessions, true
 
-
-
 post '/' do
   if !session[:username]
     session[:username] = params[:username]
+  elsif session[:username] != params[:username] && (session[:username] != "" && session[:username])
+    session[:username] = params[:username]
+    redirect '/game'
   elsif session[:username] != "" && session[:username]
-    redirect '/home'
+    redirect '/game'
   else 
-    redirect 'form'
+    redirect '/login'
   end
 end
 
@@ -20,21 +21,21 @@ get '/' do
   if !session[:username]
     session[:username] = params[:username]
   elsif session[:username] != "" && session[:username]
-    redirect '/home'
+    redirect '/game'
   else 
-    redirect 'form'
+    redirect 'login'
   end
 end
 
-get '/form' do
-  erb :form
+get '/login' do
+  erb :login
 end
 
 
 
-get '/home' do
+get '/game' do
   if !session[:username] || session[:username] == ""
-    redirect '/form'
+    redirect '/login'
   end
-  erb :home
+  erb :game
 end
