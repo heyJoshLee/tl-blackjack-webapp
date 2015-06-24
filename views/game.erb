@@ -1,3 +1,21 @@
 here is the game page
 <h2> Hi,</h2>
-<%= session[:username] %>
+<%= session[:player_name] %>
+
+
+
+
+Dealer's cards:
+<ul>  
+<% session[:dealer_cards].each do |card| %>
+  <li><p><%= card.to_s %><p></li>
+<% end %>
+</ul>
+
+
+<%= session[:player_name]%>'s cards
+<ul>  
+<% session[:player_cards].each do |card| %>
+  <li><p><%= card.to_s %><p></li>
+<% end %>
+</ul>
