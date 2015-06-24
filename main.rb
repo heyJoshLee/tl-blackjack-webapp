@@ -9,6 +9,10 @@ get '/' do
   "Hello World"
 end
 
+get '/about' do
+  erb :about
+end
+
 
 get '/test' do
   erb :test
