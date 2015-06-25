@@ -7,7 +7,7 @@
 <% end %>
 </ul>
 
-Dealer has <strong><%= calculate_total(session[:player_cards])%></strong>
+Dealer has <strong><%= calculate_total(session[:dealer_cards])%></strong>
 
 <br>
 <h2><%= session[:player_name]%>'s cards</h2>
@@ -18,3 +18,16 @@ Dealer has <strong><%= calculate_total(session[:player_cards])%></strong>
 </ul>
 
 <%= session[:player_name] %> has <strong><%= calculate_total(session[:player_cards])%></strong>
+
+<p>
+  What would you like to do?
+<% if @show_hit_or_stay_buttons %>
+  <form action="/game/player/hit" method="post">
+    <input type="submit" class="btn" value="Hit">
+  </form>
+  <form action="/game/player/stay" method="post">
+    <input type="submit" class="btn" value="Stay">
+  </form>
+<%end%>
+
+</p>
