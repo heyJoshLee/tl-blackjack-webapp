@@ -7,6 +7,7 @@
     <a href="/game_over" class="btn btn-danger">No</a>
   </p>
 <%end%>
+
 <div class="well">
   <h2>Dealer's cards</h2>
   <% session[:dealer_cards].each_with_index do |card, i| %>
@@ -17,6 +18,7 @@
     <% end %>
   <% end %>
 
+<!-- dealer_hit_button conditional -->
   <% if @show_dealer_hit_button %>
   <h5> Dealer has <%= calculate_total(session[:dealer_cards]) %> and will hit </h5>
     <p><form action="/game/dealer/hit" method="post">
@@ -41,6 +43,7 @@
 </div>
 <p>
 
+<!-- hit or stay buttons -->
 <% if @show_hit_or_stay_buttons %>
   What would <%= session[:player_name]%> like to do?
 

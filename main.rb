@@ -8,7 +8,7 @@ BLACKJACK_AMOUNT = 21
 DEALER_MIN_HIT = 17
 
 helpers do
-  def calculate_total(cards) # cards is nested array
+  def calculate_total(cards) # cards is a nested array
     arr = cards.map{|element| element[1]}
 
     total = 0
@@ -117,8 +117,6 @@ get '/game' do
   session[:dealer_cards] << session[:deck].pop
   session[:player_cards] << session[:deck].pop
 
-   # dealer cards
-   # player cards
   erb :game
 end
 
