@@ -3,7 +3,7 @@
 <% if @play_again %>
   <p>
     <strong>Play again?</strong>
-    <a href="/game" class="btn btn-prumary">Yes</a>
+    <a href="/bet" class="btn btn-prumary">Yes</a>
     <a href="/game_over" class="btn btn-danger">No</a>
   </p>
 <%end%>
@@ -26,7 +26,6 @@
     </form></p>
   <% end %>
   <br>
-  Dealer has <strong><%= calculate_total(session[:dealer_cards])%></strong>
 
 </div>
 
@@ -37,6 +36,9 @@
   <% session[:player_cards].each do |card| %>
     <%= card_image(card) %>
   <% end %>
+  <h5> 
+  <%= session[:player_name] %> has $<%= session[:player_pot] %> and bet $<%=session[:player_bet] %>
+  </h5>
   <br>
 
   <%= session[:player_name] %> has <strong><%= calculate_total(session[:player_cards])%></strong>
