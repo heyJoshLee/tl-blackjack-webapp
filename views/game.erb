@@ -31,7 +31,7 @@
 
 
 <br>
-<div class="well">
+<div class="well" id="player_cards">
   <h2><%= session[:player_name]%>'s cards</h2>
   <% session[:player_cards].each do |card| %>
     <%= card_image(card) %>
