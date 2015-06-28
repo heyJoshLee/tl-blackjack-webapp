@@ -5,7 +5,7 @@
     <div class="alert alert-error"><%=@loser%></div>
   <% end %>
 
-  <h1>Blackjack!</h1>
+  <h1>Let's Play!</h1>
 
   <p>Welcome <%= session[:player_name] %>.</p>
 
@@ -52,10 +52,13 @@
 
 
   <p>
-    What would <%= session[:player_name] %> like to do?
-  <%= session[:player_name] %> has <%= calculate_total(session[:player_cards]) %>
+   
 
   <% if @show_hit_or_stay_buttons %>
+
+   What would <%= session[:player_name] %> like to do?
+  <%= session[:player_name] %> has <%= calculate_total(session[:player_cards]) %>
+
     <form id="hit_form" action="/game/player/hit" method='post'>
       <input type="submit" class="btn btn-success" value="Hit" />
     </form>
