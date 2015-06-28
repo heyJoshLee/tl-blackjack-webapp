@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require "pry"
 
+# fix for jquery not working with chrome
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
                            :secret => 'your_secret'
@@ -56,20 +57,20 @@ helpers do
     @play_again = true
     @show_hit_or_stay_buttons = false
     session[:player_pot] = session[:player_pot] + session[:player_bet]
-    @success = "<strong>#{session[:player_name]} wins! </strong> #{msg}"
+    @winner = "<strong>#{session[:player_name]} wins! </strong> #{msg}"
   end
 
   def loser!(msg)
     @play_again = true
     @show_hit_or_stay_buttons = false
     session[:player_pot] = session[:player_pot] - session[:player_bet]
-    @error = "<strong> #{session[:player_name]} loses. </strong> #{msg}"
+    @loser = "<strong> #{session[:player_name]} loses. </strong> #{msg}"
   end
 
   def tie!(msg)
     @play_again = true
     @show_hit_or_stay_buttons = false
-    @success = "<strong> It's a tie </strong>"
+    @tie = "<strong> It's a tie </strong>"
   end
 
 
@@ -118,7 +119,10 @@ post '/bet' do
     @error = "Must make a bet"
     halt erb(:bet)
   elsif params[:bet_amount].to_i > session[:player_pot]
-    @error = "Bet amount cannot be greater than what you have ($#{session[:player_pot]}"
+    @error = "Bet amount cannot be greater than what you have $#{session[:player_pot]}"
+    halt erb(:bet)
+  elsif params[:bet_amount].to_i <= 0
+    @error = "Please enter an amount greater than 0."
     halt erb(:bet)
   else
     session[:player_bet] = params[:bet_amount].to_i
@@ -152,7 +156,7 @@ post '/game/player/hit' do
     loser!("It looks like #{session[:player_name]} busted at #{player_total}.")
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 
@@ -199,7 +203,7 @@ get "/game/compare" do
     else
       tie!("Both #{session[:player_name]} and the dealer stayed at #{player_total}.")
     end
-    erb :game
+    erb :game, layout: false
 end
 
 get "/game_over" do
