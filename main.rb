@@ -56,21 +56,21 @@ helpers do
   def winner!(msg)
     @play_again = true
     @show_hit_or_stay_buttons = false
-    session[:player_pot] = session[:player_pot] + session[:player_bet]
+    session[:player_pot] += session[:player_bet]
     @winner = "<strong>#{session[:player_name]} wins! </strong> #{msg}"
   end
 
   def loser!(msg)
     @play_again = true
     @show_hit_or_stay_buttons = false
-    session[:player_pot] = session[:player_pot] - session[:player_bet]
+    session[:player_pot] -= session[:player_bet]
     @loser = "<strong> #{session[:player_name]} loses. </strong> #{msg}"
   end
 
   def tie!(msg)
     @play_again = true
     @show_hit_or_stay_buttons = false
-    @tie = "<strong> It's a tie </strong>"
+    @tie = "<strong> It's a tie. </strong>"
   end
 
 
@@ -115,13 +115,14 @@ post '/new_player' do
 end
 
 post '/bet' do
-  if params[:bet_amount].nil? || params[:bet_amount].to_i == 0
+  bet_amount = params[:bet_amount]
+  if bet_amount.nil? || bet_amount.to_i == 0
     @error = "Must make a bet"
     halt erb(:bet)
-  elsif params[:bet_amount].to_i > session[:player_pot]
+  elsif bet_amount.to_i > session[:player_pot]
     @error = "Bet amount cannot be greater than what you have $#{session[:player_pot]}"
     halt erb(:bet)
-  elsif params[:bet_amount].to_i <= 0
+  elsif bet_amount.to_i <= 0
     @error = "Please enter an amount greater than 0."
     halt erb(:bet)
   else
