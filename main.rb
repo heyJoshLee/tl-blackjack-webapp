@@ -211,4 +211,8 @@ get "/game_over" do
   erb :game_over
 end
 
+get "/about" do
+  erb :about
+end
+
 
