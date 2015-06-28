@@ -5,6 +5,8 @@
     <div class="alert alert-success"><%=@winner%></div>
   <% elsif @loser %>
     <div class="alert alert-error"><%=@loser%></div>
+    <% elsif @tie %>
+    <div class="alert"><%=@tie%></div>
   <% end %>
 
   <h1>Let's Play!</h1>
