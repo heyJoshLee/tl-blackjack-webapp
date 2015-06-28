@@ -1,4 +1,6 @@
 <div id='game'>
+
+  <% player_name = session[:player_name] # This variable is printed often so using a local variable. %> 
   <% if @winner %>
     <div class="alert alert-success"><%=@winner%></div>
   <% elsif @loser %>
@@ -7,7 +9,7 @@
 
   <h1>Let's Play!</h1>
 
-  <p>Welcome <%= session[:player_name] %>.</p>
+  <p>Welcome, <%= player_name %>.</p>
 
   <% if @play_again %>
     <p>
@@ -46,7 +48,7 @@
     <% end %>
 
     <h5>
-      <%= session[:player_name] %> has $<%= session[:player_pot] %> <br> and has bet $<%= session[:player_bet]%> this round.
+      <%= player_name %> has $<%= session[:player_pot] %> <br> and has bet $<%= session[:player_bet]%> this round.
     </h5>
   </div>
 
@@ -56,8 +58,9 @@
 
   <% if @show_hit_or_stay_buttons %>
 
-   What would <%= session[:player_name] %> like to do?
-  <%= session[:player_name] %> has <%= calculate_total(session[:player_cards]) %>
+   What would <%= player_name %> like to do?
+   <br>
+  <%= player_name %> has: <h3><%= calculate_total(session[:player_cards]) %></h3>
 
     <form id="hit_form" action="/game/player/hit" method='post'>
       <input type="submit" class="btn btn-success" value="Hit" />
