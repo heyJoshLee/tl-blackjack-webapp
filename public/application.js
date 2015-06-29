@@ -11,6 +11,7 @@ function player_hit() {
       url: '/game/player/hit'
     }).done(function(msg){
       $("div#game").replaceWith(msg);
+      $("div#game").hide().fadeIn(500);
     });
     return false;
   });
@@ -35,6 +36,7 @@ function dealer_hit() {
       url: '/game/dealer/hit'
     }).done(function(msg){
       $("div#game").replaceWith(msg);
+      $("div#game").hide().fadeIn(500);
     });
     return false;
   });
